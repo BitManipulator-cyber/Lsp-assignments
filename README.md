@@ -1,8 +1,5 @@
-# Linux System Programming Repository
+# Jay Ganesh...
+## Linux System Programming Repository
 > In C-programming language
-
-### Jay Ganesh
-```
-Name: Aaditya Jagtap
-ID  : LSP01000141
-```
+__This repository contains LSP Batch assignments codes__
+### Solved by Aaditya Jagtap(LSP01000141)
