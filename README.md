@@ -1,5 +1,8 @@
-# Linux System Programming assignments repo
+# Linux System Programming Repository
 > In C-programming language
 
-## Name: Aaditya Jagtap
-## ID  : LSP01000141
+### Jay Ganesh
+```
+Name: Aaditya Jagtap
+ID  : LSP01000141
+```
