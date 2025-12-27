@@ -5,26 +5,28 @@
 
 #include <stdio.h>
 #include <fcntl.h>
-#include <errno.h>
-#include <string.h>
+#include <unistd.h>
 
-int main()
+// Opens file and returns its file descriptor.
+// Caller is responsible for error handling.
+int open_file(const char *filename)
 {
-	int  fd = 0;
-	char filename[256];     // 256 because max filename size = 256 bytes
+    return open(filename, O_CREAT | O_RDONLY, 0644);
+}
 
-	// Accepting the filename
-	printf("Enter file name:\n");
-	scanf("%s", filename);
+int main(void)
+{
+    char filename[256];
 
-	// Open the file in READ MODE
-	// Also CREATE the file if it does not exists already
-	fd = open(filename, O_CREAT | O_RDONLY, 0644);
+    printf("Enter file name: ");
+    scanf("%255s", filename);
 
-	if(fd >= 0){
-		printf("File opened successfully with fd: %d\n", fd);
-	}else{
-		perror("Error opening the file\nINFO");
-	}
-	return 0;
+    int fd = open_file(filename);
+    if (fd < 0) {
+        perror("open");
+        return 1;
+    }
+
+    printf("File opened successfully with fd: %d\n", fd);
+    close(fd);
 }
