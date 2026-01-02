@@ -1,29 +1,41 @@
-// Question 4
-// Accept directory name
-// Print each entry with it's type: Regular/Directory/Link/FIFO/Socket/Char/Block
-// Use lstat() for accurate type
+/**
+ * Author: Aaditya Jagtap
+ * Problem Statement: Print each file with it's type using lstat()
+ * Input: Directory name
+ * Output: Each filename + filetype
+ */
 
+/* Header files */
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <dirent.h>
 #include <string.h>
 #include <errno.h>
-#include <limits.h>
 
-int main()
+/**
+ * print_file_type - prints every file name and it's type
+ *
+ * @dir_name: stores directory name
+ *
+ * This function takes the directory name from the user and 
+ * then opens the directory and traverse the whole directory.
+ *
+ * Then this function prints each file's name and it's type
+ * on the console.
+ *
+ * Return:
+ * void (filename + filetype on console)
+ */
+void print_file_type(char dir_name[])
 {
-	DIR 	      *dp  = NULL;
+
+	DIR           *dp = NULL;
 	struct dirent *ptr = NULL;
 	struct stat    s_obj;
-	char   dir_name[256];
-	int    iRet = 0;
-	char   fullpath[PATH_MAX];
-
-	printf("Enter directory name:\n");
-	scanf ("%s", dir_name);
-
-	// Open the directory file
+	char   fullpath[1024];
+	
+	/* Open the directory */
 	dp = opendir(dir_name);
 
 	if(dp != NULL){
@@ -32,29 +44,20 @@ int main()
 		printf("ERROR INFO: %s\n", strerror(errno));
 	}
 
-	while(ptr = readdir(dp)){
-		// Skip . and ..
+	/* Traverse the directory */
+	while((ptr = readdir(dp)) != NULL)
+	{
 		if(strcmp(".", ptr -> d_name) == 0 || strcmp("..", ptr -> d_name) == 0)
 		{
 			printf("Filename: %-10s\tFiletype: Directory file\n", ptr -> d_name);
 			continue;
 		}
 
-		// Build the path for lstat() to detect the filenames
+		/* Build the path for lstat() to detect the filenames */
 		snprintf(fullpath, sizeof(fullpath), "%s/%s", dir_name, ptr -> d_name);
 		printf("Filename: %-10s\t", ptr -> d_name);
-
-	        // switch (sb.st_mode & S_IFMT) {
-		   // case S_IFBLK:  printf("block device\n");            break;
-		   // case S_IFCHR:  printf("character device\n");        break;
-		   // case S_IFDIR:  printf("directory\n");               break;
-		   // case S_IFIFO:  printf("FIFO/pipe\n");               break;
-		   // case S_IFLNK:  printf("symlink\n");                 break;
-		   // case S_IFREG:  printf("regular file\n");            break;
-		   // case S_IFSOCK: printf("socket\n");                  break;
-		   // default:       printf("unknown?\n");                break;
-		   // }
-
+		
+		/* Check and print the file type */
 		if(lstat(fullpath, &s_obj) == 0)
 		{
 			if      (S_ISREG  (s_obj.st_mode)) printf("File type: Regular file\n");
@@ -73,6 +76,18 @@ int main()
 	}
 
 	closedir(dp);
+
+}
+
+/* Entry point function */
+int main()
+{
+	char   dir_name[256];
+
+	printf("Enter directory name:\n");
+	scanf ("%s", dir_name);
+
+	print_file_type(dir_name);
 
 	return 0;
 }

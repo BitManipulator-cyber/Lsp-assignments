@@ -1,18 +1,50 @@
-// Question 2
-// Accept filename and a string from the user
-// Write the string using write()
-// Print number of bytes written
+/**
+ * Author: Aaditya Jagtap
+ * Problem Statement: Write the user input string to user specified file
+ * Input : Filename, string
+ * Output: Bytes written to the file
+ */
 
+/* Header files */
 #include <stdio.h>
 #include <fcntl.h>
 #include <string.h>
-#include <errno.h>
 #include <unistd.h>
 
-int main()
+/**
+ * write_to_file - writes user input buffer to the user specified file
+ *
+ * @filename: stores the filename
+ * @buf     : local buffer
+ *
+ * This function opens the file in *write + append* mode and writes the 
+ * user input content for eg. "Hello, World!" to the user specified file
+ * eg. Demo.txt 
+ *
+ * Return:
+ * void (content written to the file)
+ */
+void write_to_file(char filename[], char buf[])
 {
-	int  fd = 0;
-	int  iRet = 0;
+	int fd = 0, iRet = 0;
+	
+	/* Open the file */
+	fd = open(filename, O_WRONLY | O_APPEND);
+	if(fd < 0) perror("Failed to open the file\n");
+	else       printf("File opened succesfully\n");
+
+	/* Write to the file */
+	iRet = write(fd, buf, strlen(buf));
+	if(iRet < 0) perror("Failed to write to file\n");
+	else         printf("Succesfully wrote to the file\n");
+
+	close(fd);
+
+}
+
+/* Entry point function */
+int main(void)
+{
 	char filename[256];
 	char buffer[1024];
 
@@ -22,23 +54,7 @@ int main()
 	printf("Enter the string:\n");
 	scanf("%s", buffer);
 
-	size_t str_size = strlen(buffer);
-	
-	// Open the file in append mode
-	fd = open(filename, O_WRONLY | O_APPEND);
-
-	if(fd >= 0) printf("File opened succesfully\n");
-	else 	    printf("ERROR INFO: %s", strerror(errno));
-
-	// write() syntax
-	// ssize_t write (int fd, void buf[count], size_t count);
-	
-	iRet = write(fd, buffer, str_size);
-
-	if(iRet > 0) printf("%d bytes written to the file: %s\n", iRet, filename);
-	else 	     printf("ERROR INFO: %s", strerror(errno));
-
-	close(fd);
+	write_to_file(filename, buffer);
 
 	return 0;
 }
