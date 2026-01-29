@@ -29,10 +29,10 @@ typedef int (*op_fn)(int, int);
 void call_add(int num1, int num2)
 {
     void *handle;
-    op_fn add;
     char *error;
+    op_fn add;
 
-    handle = dlopen("./libserver.so", RTLD_LAZY);
+    handle = dlopen("./lib/libserver.so", RTLD_LAZY);
     if (!handle)
     {
         fprintf(stderr, "%s\n", dlerror());
@@ -76,7 +76,7 @@ void call_sub(int num1, int num2)
     op_fn sub;
     char *error;
 
-    handle = dlopen("./libserver.so", RTLD_LAZY);
+    handle = dlopen("./lib/libserver.so", RTLD_LAZY);
     if (!handle)
     {
         fprintf(stderr, "dlopen error: %s\n", dlerror());
@@ -122,7 +122,7 @@ void call_mul(int num1, int num2)
     op_fn mul;
     char *error;
 
-    handle = dlopen("./libserver.so", RTLD_LAZY);
+    handle = dlopen("./lib/libserver.so", RTLD_LAZY);
     if (!handle)
     {
         fprintf(stderr, "%s\n", dlerror());
@@ -172,7 +172,7 @@ void call_div(int num1, int num2)
         return;
     }
 
-    handle = dlopen("./libserver.so", RTLD_LAZY);
+    handle = dlopen("./lib/libserver.so", RTLD_LAZY);
     if (!handle)
     {
         fprintf(stderr, "%s\n", dlerror());

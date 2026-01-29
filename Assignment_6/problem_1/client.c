@@ -30,9 +30,10 @@ typedef int (*op_fn)(int, int);
 void call_to_server()
 {
 	void *handle;
+	char *error;
 	op_fn add = NULL, sub = NULL;
 
-	handle = dlopen("./libserver.so", RTLD_LAZY);
+	handle = dlopen("./lib/libserver.so", RTLD_LAZY);
 	if(!handle)
 	{
 		fprintf(stderr, "%s\n", dlerror());

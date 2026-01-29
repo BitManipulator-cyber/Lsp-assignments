@@ -18,7 +18,7 @@ int main()
 	op_fn add;
 
 	/*------- Using RTLD_LAZY flag ---------*/
-	handle = dlopen("./libserver.so", RTLD_LAZY);
+	handle = dlopen("./lib/libserver.so", RTLD_LAZY);
 
 	if(!handle){
 		fprintf(stderr, "%s\n", dlerror());
@@ -42,7 +42,7 @@ int main()
 
 	
 	/*------- Using RTLD_NOW flag ---------*/
-	handle = dlopen("./libserver.so", RTLD_NOW);
+	handle = dlopen("./lib/libserver.so", RTLD_NOW);
 
 	if(!handle){
 		fprintf(stderr, "%s\n", dlerror());

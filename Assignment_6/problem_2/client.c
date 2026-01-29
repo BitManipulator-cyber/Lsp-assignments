@@ -17,6 +17,7 @@ typedef int (*op_fn)(int, int);
 int main()
 {
 	void *handle;
+	char *error;
 	op_fn add = NULL, sub = NULL;
 
 	/**
@@ -35,11 +36,11 @@ int main()
 	 * Return:
 	 * A non-NULL handle for the loaded object
 	 */
-	 handle = dlopen("./libserver.so", RTLD_LAZY);
+	 handle = dlopen("./lib/libserver.so", RTLD_LAZY);
 	 if (!handle)
 	 {
 		 fprintf(stderr, "%s\n", dlerror());
-		 return;
+		 return 1;
 	 }
 
 	 /**
@@ -77,9 +78,9 @@ int main()
 
 	 if (error)
 	 {
-		 fprintf(stderr, "%s\n", error)
+		 fprintf(stderr, "%s\n", error);
 		 dlclose(handle);
-		 return;
+		 return 1;
 	 }
 
 	 printf("Addition = %d\n", add(5, 3));

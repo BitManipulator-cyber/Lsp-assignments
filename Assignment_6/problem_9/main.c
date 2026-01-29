@@ -18,7 +18,7 @@ int main()
 	char *error;
 	op_fn math_fn[3];
 
-	handle = dlopen("./libmath.so", RTLD_LAZY);
+	handle = dlopen("./lib/libmath.so", RTLD_LAZY);
 	if(!handle)
 	{
 		fprintf(stderr, "%s\n", dlerror());

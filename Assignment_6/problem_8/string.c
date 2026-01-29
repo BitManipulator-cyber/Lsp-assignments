@@ -23,7 +23,7 @@ int main()
 	printf("Enter the string\n");
 	fgets(str, sizeof(str), stdin);
 
-	handle = dlopen("./libcount.so", RTLD_LAZY);
+	handle = dlopen("./lib/libcount.so", RTLD_LAZY);
 	if(!handle)
 	{
 		fprintf(stderr, "%s\n", dlerror());

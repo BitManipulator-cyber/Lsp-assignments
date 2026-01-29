@@ -31,7 +31,7 @@ void call_add(int num1, int num2)
     op_fn add;
     char *error;
 
-    handle = dlopen("./libserver.so", RTLD_LAZY);
+    handle = dlopen("./lib/libserver.so", RTLD_LAZY);
     if (!handle)
     {
         fprintf(stderr, "%s\n", dlerror());
@@ -75,7 +75,7 @@ void call_sub(int num1, int num2)
     op_fn sub;
     char *error;
 
-    handle = dlopen("./libserver.so", RTLD_LAZY);
+    handle = dlopen("./lib/libserver.so", RTLD_LAZY);
     if (!handle)
     {
         fprintf(stderr, "dlopen error: %s\n", dlerror());

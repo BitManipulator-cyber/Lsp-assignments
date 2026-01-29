@@ -6,7 +6,7 @@
  */
 
 /* Header files */
-#include "calc.h"
+#include "lib/calc.h"
 
 /* Entry point funtion */
 int main()
